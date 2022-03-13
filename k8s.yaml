@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-go
+spec:
+  selector:
+    matchLabels:
+      app: test-go
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: test-go
+    spec:
+      containers:
+      - name: test-go
+        image: test-go
+        ports:
+        - containerPort: 80
