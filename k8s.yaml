@@ -15,5 +15,6 @@ spec:
       containers:
       - name: test-go
         image: test-go-img
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8110
