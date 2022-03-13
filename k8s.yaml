@@ -16,4 +16,4 @@ spec:
       - name: test-go
         image: test-go-img
         ports:
-        - containerPort: 80
+        - containerPort: 8110
