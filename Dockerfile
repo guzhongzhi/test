@@ -1,5 +1,5 @@
 FROM centos
 WORKDIR /app
-ADD /app/test ./test
+ADD ./test /app/test
 ENTRYPOINT ["./test"]
 
