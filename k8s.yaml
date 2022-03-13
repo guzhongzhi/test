@@ -7,6 +7,10 @@ spec:
     matchLabels:
       app: test-go
   replicas: 2
+  strategy:
+    rollingUpdate: ##由于replicas为3,则整个升级,pod个数在2-4个之间
+      maxSurge: 1      #滚动升级时会先启动1个pod
+      maxUnavailable: 1 #滚动升级时允许的最大Unavailable的pod个数
   template:
     metadata:
       labels:
@@ -16,5 +20,24 @@ spec:
       - name: test-go
         image: test-go-img
         imagePullPolicy: IfNotPresent
+        livenessProbe:
+          httpGet:
+            path: / #如果没有心跳检测接口就为/
+            port: 8110
+            scheme: HTTP
+          initialDelaySeconds: 0 ##启动后延时多久开始运行检测
+          timeoutSeconds: 5
+          successThreshold: 1
+          failureThreshold: 5
+          readinessProbe:
+        readinessProbe:
+          httpGet:
+            path: / #如果没有心跳检测接口就为/
+            port: 8110
+            scheme: HTTP
+          initialDelaySeconds: 0 #启动后延时多久开始运行检测
+          timeoutSeconds: 5
+          successThreshold: 1
+          failureThreshold: 5
         ports:
         - containerPort: 8110
